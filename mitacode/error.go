@@ -42,6 +42,7 @@ var (
 	ErrClientTokenInvalid  = NewError("CLIENT_TOKEN_INVALD", "用户 token 不正确", true)
 	ErrNotPermitted        = NewError("NOT_PERMITTED", "没有权限", true)
 	ErrStateMayHaveChanged = NewError("STATE_MAY_CHANGED", "当前状态已发生改变，请重新进入页面", true)
+	ErrInternalError       = NewError("INTERNAL_ERROR", "内部错误", true)
 
 	ErrRecordExists = NewError("RECORD_EXISTS", "数据已存在", false)
 	ErrItemNotFound = NewError("ITEM_NOT_FOUND", "没有找到所需的数据", false)

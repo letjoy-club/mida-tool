@@ -6,6 +6,7 @@ import (
 
 	"github.com/golang-jwt/jwt/v4"
 	"github.com/letjoy-club/mitatool/logger"
+	"github.com/letjoy-club/mitatool/mitacode"
 	"go.uber.org/zap"
 )
 
@@ -31,14 +32,14 @@ func (a Authenticator) Verify(tokenStr string) (string, error) {
 	if err != nil {
 		if errors.Is(err, jwt.ErrTokenMalformed) {
 		} else if errors.Is(err, jwt.ErrTokenExpired) || errors.Is(err, jwt.ErrTokenNotValidYet) {
-			return "", errorcode.ErrClientTokenExpired
+			return "", mitacode.ErrClientTokenExpired
 		}
 		logger.L.Error("failed to verify token", zap.Error(err), zap.String("token", tokenStr))
-		return "", errorcode.InternalError
+		return "", mitacode.ErrInternalError
 	}
 
 	if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
 		return claims["id"].(string), nil
 	}
-	return "", errorcode.ErrClientTokenInvalid
+	return "", mitacode.ErrClientTokenInvalid
 }
