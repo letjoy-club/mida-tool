@@ -1,4 +1,4 @@
-package mitacontext
+package midacontext
 
 import (
 	"context"
@@ -133,7 +133,7 @@ var WithCORS = cors.Handler(cors.Options{
 	AllowedOrigins:   []string{"https://*", "http://*"},
 	AllowOriginFunc:  func(r *http.Request, origin string) bool { return true },
 	AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
-	AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "x-mita-token"},
+	AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "x-mita-token", "x-mida-token"},
 	ExposedHeaders:   []string{"Link", "Content-Type"},
 	AllowCredentials: false,
 	MaxAge:           300, // Maximum value not ignored by any of major browsers
@@ -168,7 +168,6 @@ func GetClientToken(ctx context.Context) clienttoken.ClientToken {
 /**
  * GraphQL
  */
-
 type GraphQLResp struct {
 	Data   interface{}  `json:"data"`
 	Errors []GraphQLErr `json:"errors"`
@@ -181,9 +180,9 @@ type GraphQLErr struct {
 
 func ParseToken(r *http.Request, auth authenticator.Authenticator) clienttoken.ClientToken {
 	var tokenStr string
-	token := r.Header.Get("X-Mita-Token")
+	token := r.Header.Get("X-MiDa-Token")
 	if token == "" {
-		token = r.Header.Get("x-mita-token")
+		token = r.Header.Get("X-MiTa-Token")
 	}
 	if token != "" {
 		var err error
