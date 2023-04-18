@@ -1,4 +1,4 @@
-module github.com/letjoy-club/mitatool
+module github.com/letjoy-club/mida-tool
 
 go 1.19
 

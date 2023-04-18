@@ -5,8 +5,8 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v4"
-	"github.com/letjoy-club/mitatool/logger"
-	"github.com/letjoy-club/mitatool/mitacode"
+	"github.com/letjoy-club/mida-tool/logger"
+	"github.com/letjoy-club/mida-tool/mitacode"
 	"go.uber.org/zap"
 )
 
