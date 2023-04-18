@@ -1,4 +1,4 @@
-package mitacode
+package midacode
 
 import (
 	"errors"
