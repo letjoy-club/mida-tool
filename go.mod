@@ -9,7 +9,9 @@ require (
 	github.com/go-chi/cors v1.2.1
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
+	github.com/graph-gophers/dataloader/v7 v7.1.0
 	github.com/medivhzhan/weapp/v3 v3.6.18
+	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/redis/go-redis/v9 v9.0.3
 	github.com/tencentcloud/tencentcloud-cls-sdk-go v1.0.4
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.41
