@@ -24,6 +24,13 @@ func (c ClientToken) IsAnonymous() bool {
 	return c == ""
 }
 
+func (c ClientToken) UserID() string {
+	if c.IsUser() {
+		return c.String()
+	}
+	return ""
+}
+
 func (c ClientToken) Ptr() *string {
 	s := string(c)
 	return &s
