@@ -1,5 +1,7 @@
 package graphqlutil
 
+import "github.com/letjoy-club/mida-tool/clienttoken"
+
 type GraphQLPaginator struct {
 	Size *int `json:"size,omitempty"`
 	Page *int `json:"page,omitempty"`
@@ -30,4 +32,20 @@ func GetPager(paginator *GraphQLPaginator) Paginator {
 	}
 
 	return Paginator{Size: size, Page: page}
+}
+
+func GetID(token clienttoken.ClientToken, id *string) string {
+	if token.IsAnonymous() || token.IsInvalid() {
+		return ""
+	}
+	var ret string
+	if token.IsAdmin() {
+		if id == nil {
+			return ""
+		}
+		ret = *id
+	} else {
+		ret = token.String()
+	}
+	return ret
 }
