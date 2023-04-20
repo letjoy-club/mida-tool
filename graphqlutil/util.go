@@ -39,13 +39,13 @@ func GetID(token clienttoken.ClientToken, id *string) string {
 		return ""
 	}
 	var ret string
-	if token.IsAdmin() {
+	if token.IsUser() {
+		ret = token.String()
+	} else {
 		if id == nil {
 			return ""
 		}
 		ret = *id
-	} else {
-		ret = token.String()
 	}
 	return ret
 }

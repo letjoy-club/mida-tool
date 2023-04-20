@@ -65,8 +65,15 @@ type QCloudConf struct {
 	COS        *cos.Client
 	AK         string
 	SK         string
+	Path       string
 	CLS        *cls.AsyncProducerClient
 	CLSTopicID string
+	TIM        TimConf
+}
+
+type TimConf struct {
+	AppID int
+	Key   string
 }
 
 func WithQCloud(ctx context.Context, conf QCloudConf) context.Context {
