@@ -182,15 +182,15 @@ type Services struct {
 	Smew *graphql.Client
 }
 
-func WithService(ctx context.Context, services Services) context.Context {
+func WithServices(ctx context.Context, services Services) context.Context {
 	return context.WithValue(ctx, servicesKey{}, services)
 }
 
-func GetService(ctx context.Context) Services {
+func GetServices(ctx context.Context) Services {
 	return ctx.Value(servicesKey{}).(Services)
 }
 
-func NewService(url, token string) *graphql.Client {
+func NewServices(url, token string) *graphql.Client {
 	client := http.Client{}
 	return graphql.NewClient(url+"/api", &client).WithRequestModifier(func(r *http.Request) {
 		r.Header.Set("X-MiDa-Token", token)
