@@ -132,8 +132,8 @@ func WithLoader[LoaderType any](ctx context.Context, loader LoaderType) context.
 }
 
 // loader 根据不同的业务场景，可以是不同的类型
-func GetLoader[LoaderType any](ctx context.Context) LoaderType {
-	return ctx.Value(loaderKey{}).(LoaderType)
+func GetLoader[LoaderType any](ctx context.Context) *LoaderType {
+	return ctx.Value(loaderKey{}).(*LoaderType)
 }
 
 var WithCORS = cors.Handler(cors.Options{
@@ -192,8 +192,8 @@ func GetServices(ctx context.Context) Services {
 
 func NewServices(url, token string) *graphql.Client {
 	client := http.Client{}
-	return graphql.NewClient(url+"/api", &client).WithRequestModifier(func(r *http.Request) {
-		r.Header.Set("X-MiDa-Token", token)
+	return graphql.NewClient(url, &client).WithRequestModifier(func(r *http.Request) {
+		r.Header.Set("X-Mida-Token", token)
 	})
 }
 
@@ -212,9 +212,9 @@ type GraphQLErr struct {
 
 func ParseToken(r *http.Request, auth authenticator.Authenticator) clienttoken.ClientToken {
 	var tokenStr string
-	token := r.Header.Get("X-MiDa-Token")
+	token := r.Header.Get("X-Mida-Token")
 	if token == "" {
-		token = r.Header.Get("X-MiTa-Token")
+		token = r.Header.Get("X-Mita-Token")
 	}
 	if token != "" {
 		var err error
