@@ -8,6 +8,7 @@ import (
 	"github.com/apache/pulsar-client-go/pulsar"
 	"github.com/bsm/redislock"
 	"github.com/go-chi/cors"
+	"github.com/hasura/go-graphql-client"
 	"github.com/letjoy-club/mida-tool/authenticator"
 	"github.com/letjoy-club/mida-tool/clienttoken"
 	"github.com/medivhzhan/weapp/v3"
@@ -170,6 +171,30 @@ func WithClientToken(ctx context.Context, token clienttoken.ClientToken) context
 
 func GetClientToken(ctx context.Context) clienttoken.ClientToken {
 	return ctx.Value(clientTokenKey{}).(clienttoken.ClientToken)
+}
+
+type servicesKey struct{}
+
+type Services struct {
+	// 基础服务
+	Hoopoe *graphql.Client
+	// IM 服务
+	Smew *graphql.Client
+}
+
+func WithService(ctx context.Context, services Services) context.Context {
+	return context.WithValue(ctx, servicesKey{}, services)
+}
+
+func GetService(ctx context.Context) Services {
+	return ctx.Value(servicesKey{}).(Services)
+}
+
+func NewService(url, token string) *graphql.Client {
+	client := http.Client{}
+	return graphql.NewClient(url+"/api", &client).WithRequestModifier(func(r *http.Request) {
+		r.Header.Set("X-MiDa-Token", token)
+	})
 }
 
 /**
