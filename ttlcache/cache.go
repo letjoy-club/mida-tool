@@ -3,10 +3,17 @@ package ttlcache
 import (
 	"context"
 	"fmt"
+	"time"
 
 	"github.com/graph-gophers/dataloader/v7"
 	cache "github.com/patrickmn/go-cache"
 )
+
+func New[K comparable, V any](duration time.Duration) TTLCache[K, V] {
+	return TTLCache[K, V]{
+		c: cache.New(duration, duration),
+	}
+}
 
 // TTLCache implements the dataloader.Cache interface
 type TTLCache[K comparable, V any] struct {
