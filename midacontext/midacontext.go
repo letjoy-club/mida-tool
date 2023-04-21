@@ -111,6 +111,7 @@ type mqKey struct{}
 
 type MQConfig struct {
 	UserCreateWriter pulsar.Producer
+	UserCreateReader pulsar.Consumer
 }
 
 func WithMQ(ctx context.Context, config MQConfig) context.Context {
