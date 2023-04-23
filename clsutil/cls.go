@@ -1,4 +1,4 @@
-package logger
+package clsutil
 
 import (
 	"fmt"
@@ -27,6 +27,12 @@ var paramStr = "param"
 var operationStr = "operation"
 var messageStr = "message"
 
+var SendFatal = SendLog(fatalStr)
+var SendError = SendLog(errorStr)
+var SendWarn = SendLog(warnStr)
+var SendInfo = SendLog(infoStr)
+var SendDebug = SendLog(debugStr)
+
 var SendLog = func(level string) func(client *cls.AsyncProducerClient, topic, url, method, body, param, op, user, msg, stack string) {
 	return func(client *cls.AsyncProducerClient, topic, url, method, param, body, op, user, msg, stack string) {
 		fmt.Println("sending a log")
@@ -44,12 +50,6 @@ var SendLog = func(level string) func(client *cls.AsyncProducerClient, topic, ur
 		}, Time: &now}, nil)
 	}
 }
-
-var SendFatal = SendLog(fatalStr)
-var SendError = SendLog(errorStr)
-var SendWarn = SendLog(warnStr)
-var SendInfo = SendLog(infoStr)
-var SendDebug = SendLog(debugStr)
 
 func LoggerCtx(logger *cls.AsyncProducerClient, topicID, key string) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
