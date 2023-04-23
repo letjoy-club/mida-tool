@@ -10,10 +10,17 @@ import (
 
 var ErrorStrMap = map[string]string{}
 
+var (
+	LogLevelFatal = "fatal"
+	LogLevelError = "error"
+	LogLevelWarn  = "warn"
+	LogLevelInfo  = "info"
+)
+
 type Error2 struct {
 	cn      string
 	message string
-	log     bool
+	level   string
 }
 
 func (e Error2) CN() string {
@@ -24,28 +31,28 @@ func (e Error2) Error() string {
 	return e.message
 }
 
-func (e Error2) ShouldBeLogged() bool {
-	return e.log
+func (e Error2) LogLevel() string {
+	return e.level
 }
 
-func NewError(code string, name string, log bool) error {
+func NewError(code string, name string, level string) error {
 	ErrorStrMap[code] = name
 	return Error2{
 		cn:      name,
 		message: code,
-		log:     log,
+		level:   level,
 	}
 }
 
 var (
-	ErrClientTokenExpired  = NewError("CLIENT_TOKEN_EXPIRED", "用户登录已过期", true)
-	ErrClientTokenInvalid  = NewError("CLIENT_TOKEN_INVALD", "用户 token 不正确", true)
-	ErrNotPermitted        = NewError("NOT_PERMITTED", "没有权限", true)
-	ErrStateMayHaveChanged = NewError("STATE_MAY_CHANGED", "当前状态已发生改变，请重新进入页面", true)
-	ErrInternalError       = NewError("INTERNAL_ERROR", "内部错误", true)
+	ErrClientTokenExpired  = NewError("CLIENT_TOKEN_EXPIRED", "用户登录已过期", LogLevelWarn)
+	ErrClientTokenInvalid  = NewError("CLIENT_TOKEN_INVALID", "用户 token 不正确", LogLevelWarn)
+	ErrNotPermitted        = NewError("NOT_PERMITTED", "没有权限", LogLevelWarn)
+	ErrStateMayHaveChanged = NewError("STATE_MAY_CHANGED", "当前状态已发生改变，请重新进入页面", LogLevelError)
+	ErrInternalError       = NewError("INTERNAL_ERROR", "内部错误", LogLevelError)
 
-	ErrRecordExists = NewError("RECORD_EXISTS", "数据已存在", false)
-	ErrItemNotFound = NewError("ITEM_NOT_FOUND", "没有找到所需的数据", false)
+	ErrRecordExists = NewError("RECORD_EXISTS", "数据已存在", LogLevelWarn)
+	ErrItemNotFound = NewError("ITEM_NOT_FOUND", "没有找到所需的数据", LogLevelWarn)
 )
 
 var (
