@@ -3,6 +3,7 @@ module github.com/letjoy-club/mida-tool
 go 1.19
 
 require (
+	github.com/Khan/genqlient v0.5.0
 	github.com/apache/pulsar-client-go v0.10.0
 	github.com/bsm/redislock v0.9.2
 	github.com/feiin/sqlstring v0.3.0
@@ -10,7 +11,6 @@ require (
 	github.com/go-sql-driver/mysql v1.7.0
 	github.com/golang-jwt/jwt/v4 v4.5.0
 	github.com/graph-gophers/dataloader/v7 v7.1.0
-	github.com/hasura/go-graphql-client v0.9.2
 	github.com/medivhzhan/weapp/v3 v3.6.18
 	github.com/patrickmn/go-cache v2.1.0+incompatible
 	github.com/redis/go-redis/v9 v9.0.3
@@ -39,6 +39,7 @@ require (
 	github.com/golang-jwt/jwt v3.2.1+incompatible // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
+	github.com/google/go-cmp v0.5.7 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/gsterjov/go-libsecret v0.0.0-20161001094733-a6f4afe4910c // indirect
@@ -61,6 +62,7 @@ require (
 	github.com/prometheus/procfs v0.6.0 // indirect
 	github.com/sirupsen/logrus v1.6.0 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
+	github.com/vektah/gqlparser/v2 v2.4.5 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
 	golang.org/x/mod v0.8.0 // indirect
@@ -75,5 +77,4 @@ require (
 	gorm.io/driver/mysql v1.4.0 // indirect
 	gorm.io/hints v1.1.0 // indirect
 	gorm.io/plugin/dbresolver v1.3.0 // indirect
-	nhooyr.io/websocket v1.8.7 // indirect
 )

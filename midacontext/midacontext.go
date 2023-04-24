@@ -5,10 +5,10 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/Khan/genqlient/graphql"
 	"github.com/apache/pulsar-client-go/pulsar"
 	"github.com/bsm/redislock"
 	"github.com/go-chi/cors"
-	"github.com/hasura/go-graphql-client"
 	"github.com/letjoy-club/mida-tool/authenticator"
 	"github.com/letjoy-club/mida-tool/clienttoken"
 	"github.com/medivhzhan/weapp/v3"
@@ -191,11 +191,11 @@ type servicesKey struct{}
 
 type Services struct {
 	// 基础服务
-	Hoopoe *graphql.Client
+	Hoopoe graphql.Client
 	// IM 服务
-	Smew *graphql.Client
+	Smew graphql.Client
 	// 匹配服务
-	Whale *graphql.Client
+	Whale graphql.Client
 }
 
 func WithServices(ctx context.Context, services Services) context.Context {
@@ -206,11 +206,9 @@ func GetServices(ctx context.Context) Services {
 	return ctx.Value(servicesKey{}).(Services)
 }
 
-func NewServices(url, token string) *graphql.Client {
-	client := http.Client{}
-	return graphql.NewClient(url, &client).WithRequestModifier(func(r *http.Request) {
-		r.Header.Set("X-Mida-Token", token)
-	})
+func NewServices(url, token string) graphql.Client {
+	client := newHttpClient(token)
+	return graphql.NewClient(url, client)
 }
 
 /**
