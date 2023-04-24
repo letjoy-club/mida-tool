@@ -194,6 +194,8 @@ type Services struct {
 	Hoopoe *graphql.Client
 	// IM 服务
 	Smew *graphql.Client
+	// 匹配服务
+	Whale *graphql.Client
 }
 
 func WithServices(ctx context.Context, services Services) context.Context {
