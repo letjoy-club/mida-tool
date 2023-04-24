@@ -105,6 +105,19 @@ func GetWechatConf(ctx context.Context) WechatConf {
 }
 
 /**
+ * Tencent Map
+ */
+type mapKey struct{}
+
+func WithMapConf(ctx context.Context, conf string) context.Context {
+	return context.WithValue(ctx, mapKey{}, conf)
+}
+
+func GetMapConf(ctx context.Context) string {
+	return ctx.Value(mapKey{}).(string)
+}
+
+/**
  * MQ
  */
 type mqKey struct{}
