@@ -34,6 +34,14 @@ func GetPager(paginator *GraphQLPaginator) Paginator {
 	return Paginator{Size: size, Page: page}
 }
 
+func (p *Paginator) Offset() int {
+	return (p.Page - 1) * p.Size
+}
+
+func (p *Paginator) Limit() int {
+	return p.Size
+}
+
 func GetID(token clienttoken.ClientToken, id *string) string {
 	if token.IsAnonymous() || token.IsInvalid() {
 		return ""
