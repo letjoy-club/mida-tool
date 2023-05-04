@@ -6,16 +6,10 @@ import (
 	"time"
 
 	"github.com/Khan/genqlient/graphql"
-	"github.com/apache/pulsar-client-go/pulsar"
-	"github.com/bsm/redislock"
 	"github.com/go-chi/cors"
 	"github.com/letjoy-club/mida-tool/authenticator"
 	"github.com/letjoy-club/mida-tool/clienttoken"
 	"github.com/medivhzhan/weapp/v3"
-	"github.com/redis/go-redis/v9"
-	cls "github.com/tencentcloud/tencentcloud-cls-sdk-go"
-	"github.com/tencentyun/cos-go-sdk-v5"
-	"gorm.io/gorm"
 )
 
 type startTime struct{}
@@ -26,63 +20,6 @@ func WithStartTime(ctx context.Context) context.Context {
 
 func GetStartTime(ctx context.Context) time.Time {
 	return ctx.Value(startTime{}).(time.Time)
-}
-
-/**
- * MySQL
- */
-type dbKey struct{}
-
-func WithDB(ctx context.Context, db *gorm.DB) context.Context {
-	return context.WithValue(ctx, dbKey{}, db)
-}
-
-func GetDB(ctx context.Context) *gorm.DB {
-	return ctx.Value(dbKey{}).(*gorm.DB)
-}
-
-/**
- * Redis
- */
-type redisKey struct{}
-
-func WithRedis(ctx context.Context, redis *redis.Client) context.Context {
-	return context.WithValue(ctx, redisKey{}, redis)
-}
-
-func GetRedis(ctx context.Context) *redis.Client {
-	return ctx.Value(redisKey{}).(*redis.Client)
-}
-
-func GetLocker(ctx context.Context) *redislock.Client {
-	client := ctx.Value(redisKey{}).(*redis.Client)
-	return redislock.New(client)
-}
-
-type qcloudKey struct{}
-
-type QCloudConf struct {
-	CDN        string
-	COS        *cos.Client
-	AK         string
-	SK         string
-	Path       string
-	CLS        *cls.AsyncProducerClient
-	CLSTopicID string
-	TIM        TimConf
-}
-
-type TimConf struct {
-	AppID int
-	Key   string
-}
-
-func WithQCloud(ctx context.Context, conf QCloudConf) context.Context {
-	return context.WithValue(ctx, qcloudKey{}, conf)
-}
-
-func GetQCloud(ctx context.Context) QCloudConf {
-	return ctx.Value(qcloudKey{}).(QCloudConf)
 }
 
 /**
@@ -115,24 +52,6 @@ func WithMapConf(ctx context.Context, conf string) context.Context {
 
 func GetMapConf(ctx context.Context) string {
 	return ctx.Value(mapKey{}).(string)
-}
-
-/**
- * MQ
- */
-type mqKey struct{}
-
-type MQConfig struct {
-	UserCreateWriter pulsar.Producer
-	UserCreateReader pulsar.Consumer
-}
-
-func WithMQ(ctx context.Context, config MQConfig) context.Context {
-	return context.WithValue(ctx, mqKey{}, config)
-}
-
-func GetMQ(ctx context.Context) MQConfig {
-	return ctx.Value(mqKey{}).(MQConfig)
 }
 
 /**
