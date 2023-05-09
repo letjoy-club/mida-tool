@@ -145,10 +145,11 @@ type GraphQLErr struct {
 
 func ParseToken(r *http.Request, auth authenticator.Authenticator) clienttoken.ClientToken {
 	var tokenStr string
-	token := r.Header.Get("X-Mida-Token")
-	if token == "" {
-		token = r.Header.Get("X-Mita-Token")
+	id := r.Header.Get("X-Mida-Id")
+	if id != "" {
+		return clienttoken.ClientToken(id)
 	}
+	token := r.Header.Get("X-Mida-Token")
 	if token != "" {
 		var err error
 		tokenStr, err = auth.Verify(token)
