@@ -41,9 +41,6 @@ func ProxyHandler() *websocket.Server {
 		Config: websocket.Config{},
 		Handler: func(w *websocket.Conn) {
 			defer w.Close()
-			if reverseProxy == nil {
-				return
-			}
 
 			client, err := yamux.Client(w, nil)
 			if err != nil {
@@ -69,6 +66,8 @@ func ProxyHandler() *websocket.Server {
 			defer func() {
 				reverseProxy = nil
 			}()
+
+			fmt.Println("accept reverse proxy connection")
 
 			for {
 				_, err := client.Ping()
