@@ -21,6 +21,22 @@ type Error2 struct {
 	cn      string
 	message string
 	level   string
+
+	extra interface{}
+}
+
+func (e Error2) ToExtensions() map[string]interface{} {
+	m := map[string]interface{}{}
+	m["cn"] = e.cn
+	if e.extra != nil {
+		m["extra"] = e.extra
+	}
+	return m
+}
+
+func (e Error2) WithExtra(extra interface{}) Error2 {
+	e.extra = extra
+	return e
 }
 
 func (e Error2) CN() string {
@@ -51,6 +67,7 @@ var (
 	ErrStateMayHaveChanged = NewError("STATE_MAY_CHANGED", "当前状态已发生改变，请重新进入页面", LogLevelError)
 	ErrInternalError       = NewError("INTERNAL_ERROR", "内部错误", LogLevelError)
 	ErrUnknownError        = NewError("UNKNOWN_ERROR", "发生了未知错误，你可以重试或者联系客服", LogLevelError)
+	ErrResourceBusy        = NewError("RESOURCE_BUSY", "资源繁忙，请稍后再试", LogLevelWarn)
 
 	ErrRecordExists = NewError("RECORD_EXISTS", "数据已存在", LogLevelWarn)
 	ErrItemNotFound = NewError("ITEM_NOT_FOUND", "没有找到所需的数据", LogLevelWarn)
