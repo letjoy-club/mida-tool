@@ -115,6 +115,8 @@ type Services struct {
 	Smew graphql.Client
 	// 匹配服务
 	Whale graphql.Client
+	// 通知服务
+	Scream graphql.Client
 }
 
 func WithServices(ctx context.Context, services Services) context.Context {
