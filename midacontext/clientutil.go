@@ -1,13 +1,16 @@
 package midacontext
 
-import "net/http"
+import (
+	"net/http"
+
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+)
 
 func newHttpClient(token string) *http.Client {
 	client := http.DefaultClient
 	rt := withHeader(client.Transport)
 	rt.Set("X-Mida-Token", token)
-	client.Transport = rt
-
+	client.Transport = otelhttp.NewTransport(rt)
 	return client
 }
 
