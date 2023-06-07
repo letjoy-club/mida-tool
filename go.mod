@@ -19,7 +19,7 @@ require (
 	github.com/redis/go-redis/v9 v9.0.3
 	github.com/tencentcloud/tencentcloud-cls-sdk-go v1.0.4
 	github.com/tencentyun/cos-go-sdk-v5 v0.7.41
-	github.com/vektah/gqlparser v1.3.1
+	github.com/vektah/gqlparser/v2 v2.4.5
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.42.0
 	go.opentelemetry.io/otel v1.16.0
 	go.opentelemetry.io/otel/trace v1.16.0
@@ -72,7 +72,6 @@ require (
 	github.com/prometheus/procfs v0.6.0 // indirect
 	github.com/sirupsen/logrus v1.6.0 // indirect
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
-	github.com/vektah/gqlparser/v2 v2.4.5 // indirect
 	go.opentelemetry.io/otel/metric v1.16.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.6.0 // indirect
