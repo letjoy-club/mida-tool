@@ -42,6 +42,26 @@ func (p *Paginator) Limit() int {
 	return p.Size
 }
 
+const maxClientLen = 100
+const maxPageSize = 20
+
+func (p *Paginator) IfExcceedLimit(token clienttoken.ClientToken) bool {
+	if !token.IsAdmin() {
+		if p.Size >= maxClientLen {
+			p.Size = maxPageSize
+		}
+		startAt := (p.Page - 1) * p.Size
+		if startAt >= maxClientLen {
+			return true
+		}
+		tail := p.Page * p.Size
+		if tail > maxClientLen {
+			p.Size = maxClientLen - startAt
+		}
+	}
+	return false
+}
+
 func GetID(token clienttoken.ClientToken, id *string) string {
 	if token.IsAnonymous() || token.IsInvalid() {
 		return ""
