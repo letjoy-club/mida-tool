@@ -2,11 +2,12 @@ package dbutil
 
 import (
 	"context"
+	"log"
+
 	sql "github.com/go-sql-driver/mysql"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
-	"log"
 )
 
 type DBConf struct {
@@ -27,6 +28,10 @@ func (c DBConf) ConnectDB() *gorm.DB {
 	})
 	if err != nil {
 		panic(err)
+	}
+	{
+		sql, _ := db.DB()
+		sql.SetMaxOpenConns(10)
 	}
 	db = db.Set("gorm:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci")
 	return db
