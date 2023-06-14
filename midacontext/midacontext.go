@@ -30,6 +30,7 @@ type wechatKey struct{}
 type WechatConf struct {
 	Env         string
 	AppID       string
+	AppSecret   string
 	WeappClient *weapp.Client
 }
 
