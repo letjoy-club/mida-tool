@@ -2,6 +2,7 @@ package shortid
 
 import (
 	"math/rand"
+	"strconv"
 	"time"
 )
 
@@ -17,4 +18,8 @@ func New(prefix string, n int) string {
 		b[i] = letterRunes[rand.Intn(len(letterRunes))]
 	}
 	return prefix + string(b)
+}
+
+func NewWithTime(prefix string, n int) string {
+	return New(prefix+strconv.FormatInt(time.Now().Unix(), 36), n)
 }
