@@ -9,7 +9,7 @@ import (
 func newHttpClient(token string) *http.Client {
 	client := http.DefaultClient
 	rt := withHeader(client.Transport)
-	rt.Set("X-Mida-Token", token)
+	rt.Set("X-Mida-Id", token)
 	client.Transport = otelhttp.NewTransport(rt)
 	return client
 }
