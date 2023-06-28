@@ -46,6 +46,7 @@ type SMSConf struct {
 	AppID     string `yaml:"app-id"`
 	SecretID  string `yaml:"secret-id"`
 	SecretKey string `yaml:"secret-key"`
+	SignName  string `yaml:"sign-name"`
 	Client    *sms.Client
 }
 
