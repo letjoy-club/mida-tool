@@ -1,5 +1,7 @@
 package keyer
 
+import "strconv"
+
 func User(userID string) string {
 	return "user:" + userID
 }
@@ -16,6 +18,10 @@ func UserQuota(userID string) string {
 	return "user:" + userID + ":quota"
 }
 
-func UserMatchingInvitation(userID string) string {
-	return "user:" + userID + ":matching-invitation"
+func Invitation(invitationID int) string {
+	return "invitation:" + strconv.Itoa(invitationID)
+}
+
+func MotionOffer(offerId int) string {
+	return "motion-offer:" + strconv.Itoa(offerId)
 }
