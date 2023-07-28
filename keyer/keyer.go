@@ -18,8 +18,8 @@ func UserQuota(userID string) string {
 	return "user:" + userID + ":quota"
 }
 
-func Invitation(invitationID int) string {
-	return "invitation:" + strconv.Itoa(invitationID)
+func Invitation(invitationID string) string {
+	return "invitation:" + invitationID
 }
 
 func MotionOffer(offerId int) string {
