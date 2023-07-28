@@ -15,3 +15,7 @@ func UserMotion(userID string) string {
 func UserQuota(userID string) string {
 	return "user:" + userID + ":quota"
 }
+
+func UserMatchingInvitation(userID string) string {
+	return "user:" + userID + ":matching-invitation"
+}
