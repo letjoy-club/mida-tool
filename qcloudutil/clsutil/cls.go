@@ -125,7 +125,7 @@ type Logger struct {
 func (l *Logger) Error(ctx context.Context, err error, msg string, args ...interface{}) {
 	msgStr := fmt.Sprintf(msg, args...)
 
-	reqCtx := graphql.GetRequestContext(ctx)
+	reqCtx := graphql.GetOperationContext(ctx)
 	user := midacontext.GetClientToken(ctx)
 	span := trace.SpanFromContext(ctx)
 	spanContext := span.SpanContext()
@@ -173,7 +173,7 @@ func (l *Logger) Error(ctx context.Context, err error, msg string, args ...inter
 func (l *Logger) Info(ctx context.Context, msg string, args ...interface{}) {
 	msgStr := fmt.Sprintf(msg, args...)
 
-	reqCtx := graphql.GetRequestContext(ctx)
+	reqCtx := graphql.GetOperationContext(ctx)
 	user := midacontext.GetClientToken(ctx)
 	userID := user.String()
 
@@ -205,7 +205,7 @@ func (l *Logger) Info(ctx context.Context, msg string, args ...interface{}) {
 func (l *Logger) Warn(ctx context.Context, msg string, args ...interface{}) {
 	msgStr := fmt.Sprintf(msg, args...)
 
-	reqCtx := graphql.GetRequestContext(ctx)
+	reqCtx := graphql.GetOperationContext(ctx)
 	user := midacontext.GetClientToken(ctx)
 
 	span := trace.SpanFromContext(ctx)
