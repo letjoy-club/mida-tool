@@ -43,6 +43,7 @@ func AroundOperations(tr trace.Tracer, service string) func(ctx context.Context,
 }
 
 func ErrorPresenter(ctx context.Context, e error) *gqlerror.Error {
+	logger.L.Error("log error", zap.Error(e))
 	var ok bool
 	originErr := e
 	var midaErr midacode.Error2
@@ -61,7 +62,6 @@ func ErrorPresenter(ctx context.Context, e error) *gqlerror.Error {
 
 	if !ok {
 		// 有可能 db 错误
-		logger.L.Error("unexpected error", zap.Error(e))
 		if errors.Is(e, gorm.ErrRecordNotFound) {
 			e = midacode.ErrItemNotFound
 		} else {
