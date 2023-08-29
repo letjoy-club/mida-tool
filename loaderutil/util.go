@@ -65,7 +65,11 @@ func NewAggregatorLoader[K comparable, T any, V any](
 			createdItems, errs := option.createIfNotFound(ctx, notFoundKeys)
 			for i := range createdItems {
 				itemIndex := notFoundIndexes[i]
-				result[itemIndex] = &dataloader.Result[V]{Data: createdItems[i], Error: errs[i]}
+				var err error
+				if len(errs) > i {
+					err = errs[i]
+				}
+				result[itemIndex] = &dataloader.Result[V]{Data: createdItems[i], Error: err}
 			}
 		}
 		return result
